@@ -12,19 +12,18 @@ require("dotenv").config();
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-    ],
+    origin: ["http://localhost:5173"],
     credentials: true,
   })
 );
 app.use((err, req, res, next) => {
-  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-    return res.status(400).send({ message: "Invalid JSON format or empty body" });
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res
+      .status(400)
+      .send({ message: "Invalid JSON format or empty body" });
   }
   next();
 });
-
 
 // app.use(
 //   cors({
@@ -51,9 +50,7 @@ app.use("/api/books", bookRoutes);
 //mongodb+srv://jairusilacio_db_user:9pTmVdFHvuAlhluC@cluster0.upqflly.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 async function main() {
-  await mongoose.connect(
-    process.env.DB_URL
-  );
+  await mongoose.connect(process.env.DB_URL);
   app.use("/", (req, res) => {
     res.send("Book Store Server is running!");
   });
@@ -67,3 +64,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
+//test
